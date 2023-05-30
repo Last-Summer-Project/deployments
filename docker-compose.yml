@@ -19,7 +19,8 @@ services:
     expose:
       - 8080
     volumes:
-      - "/home/user/podman/deployments/config/application.properties:/opt/application.properties"
+      # this is cursed way but who cares :<
+      - "/home/user/podman/deployments/config/application.properties:/workspace/BOOT-INF/classes/application.properties"
     environment:
       - SPRING_CONFIG_LOCATION=file:/opt/application.properties
     depends_on:
@@ -52,7 +53,13 @@ services:
       - "/home/user/podman/minio_data:/data"
     image: quay.io/minio/minio:latest
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://localhost:9000/minio/health/live"
+        ]
       interval: 30s
       timeout: 20s
       retries: 3

@@ -9,10 +9,10 @@ services:
       - "/home/user/podman/deployments/config/nginx.conf:/etc/nginx/nginx.conf"
     restart: always
     depends_on:
-      - web
+      - project-web
       - minio
 
-  web:
+  project-web:
     container_name: project-web
     restart: always
     image: ghcr.io/last-summer-project/project-web:latest

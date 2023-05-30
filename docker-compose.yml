@@ -21,7 +21,7 @@ services:
     volumes:
       - "/home/user/podman/deployments/config/application.properties:/opt/application.properties"
     environment:
-      - JAVA_OPTS=--spring.config.location=file:/opt/application.properties
+      - SPRING_CONFIG_LOCATION=file:/opt/application.properties
     depends_on:
       - mariadb
       - minio

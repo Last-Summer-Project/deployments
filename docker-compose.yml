@@ -1,0 +1,51 @@
+version: "3"
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+    restart: always
+
+  web:
+    container_name: project-web
+    restart: always
+    image: ghcr.io/last-summer-project/project-web:latest
+    expose:
+      - 8080
+    volumes:
+      - "/home/user/podman/deployments/config/application.properties:/opt/application.properties"
+    environment:
+      - JAVA_OPTS=--spring.config.location=file:/opt/application.properties
+
+  mariadb:
+    container_name: mariadb
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    expose:
+      - 3306
+    ports:
+      - "0.0.0.0:3307:3306"
+    volumes:
+      - "/home/user/podman/mysql_data:/config"
+    image: "lscr.io/linuxserver/mariadb:latest"
+
+  minio:
+    container_name: minio
+    command: server /data --console-address ":9001"
+    restart: always
+    ports:
+      - "0.0.0.0:9000:9000"
+      - "0.0.0.0:9001:9001"
+    volumes:
+      - "/home/user/podman/minio_data:/data"
+    image: quay.io/minio/minio:latest
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3

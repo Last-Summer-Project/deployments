@@ -24,6 +24,9 @@ services:
     depends_on:
       - mariadb
       - minio
+    labels:
+      - "io.containers.autoupdate=registry"
+      - "PODMAN_SYSTEMD_UNIT=podman-compose@deployments.service"
 
   mariadb:
     container_name: mariadb

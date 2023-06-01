@@ -48,7 +48,7 @@ services:
       - "0.0.0.0:9000:9000"
       - "0.0.0.0:9001:9001"
     volumes:
-      - "/home/user/podman/minio_data:/data"
+      - "/home/user/docker/minio_data:/data"
     image: quay.io/minio/minio:latest
     healthcheck:
       test:

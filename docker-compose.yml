@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "/home/user/podman/deployments/config/nginx.conf:/etc/nginx/nginx.conf"
+      - "/home/user/docker/deployments/config/nginx.conf:/etc/nginx/nginx.conf"
     restart: always
     depends_on:
       - project-web
@@ -20,13 +20,10 @@ services:
       - 8080
     volumes:
       # this is cursed way but who cares :<
-      - "/home/user/podman/deployments/config/application.properties:/workspace/BOOT-INF/classes/application.properties"
+      - "/home/user/docker/deployments/config/application.properties:/workspace/BOOT-INF/classes/application.properties"
     depends_on:
       - mariadb
       - minio
-    labels:
-      - "io.containers.autoupdate=registry"
-      - "PODMAN_SYSTEMD_UNIT=podman-compose@deployments.service"
 
   mariadb:
     container_name: mariadb
@@ -40,7 +37,7 @@ services:
     ports:
       - "0.0.0.0:3307:3306"
     volumes:
-      - "/home/user/podman/mysql_data:/config"
+      - "/home/user/docker/mysql_data:/config"
     image: "lscr.io/linuxserver/mariadb:latest"
 
   minio:
@@ -64,3 +61,9 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+  watchtower:
+    container_name: watchtower
+    image: docker.io/containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 --cleanup

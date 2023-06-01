@@ -38,7 +38,7 @@ services:
       - "0.0.0.0:3307:3306"
     volumes:
       - "/home/user/docker/mysql_data:/config"
-    image: "lscr.io/linuxserver/mariadb:latest"
+    image: "lscr.io/linuxserver/mariadb:10.6.13"
 
   minio:
     container_name: minio

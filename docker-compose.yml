@@ -91,7 +91,7 @@ services:
           devices:
           - driver: nvidia
             count: 1
-            capabilities: [gpu, utility]
+            capabilities: [gpu]
     depends_on:
       - mariadb
       - minio
@@ -118,7 +118,7 @@ services:
           devices:
           - driver: nvidia
             count: 1
-            capabilities: [gpu, utility]
+            capabilities: [gpu]
     depends_on:
       - mariadb
       - minio

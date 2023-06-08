@@ -90,7 +90,7 @@ services:
       - minio
 
   detect-server:
-    container_name: frontend
+    container_name: detect-server
     restart: always
     image: ghcr.io/last-summer-project/detect-server:latest
     environment:

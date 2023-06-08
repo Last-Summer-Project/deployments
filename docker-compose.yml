@@ -85,6 +85,13 @@ services:
       - S3_SECRET_KEY=secret-key
       - S3_VERIFY_TLS=0
       - S3_BUCKET_NAME=web-bucket
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu, utility]
     depends_on:
       - mariadb
       - minio
@@ -105,6 +112,13 @@ services:
       - S3_VERIFY_TLS=0
       - S3_BUCKET_NAME=web-bucket
       - ONNX_MODEL=model.onnx
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu, utility]
     depends_on:
       - mariadb
       - minio

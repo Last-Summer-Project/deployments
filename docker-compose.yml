@@ -126,7 +126,7 @@ services:
   detect-server-flask:
     container_name: detect-server-flask
     restart: always
-    command: python -m gunicorn -b 0.0.0.0:5000 flask-server:app
+    command: python3 -m gunicorn -b 0.0.0.0:5000 flask-server:app
     image: ghcr.io/last-summer-project/detect-server:latest
     environment:
       - ONNX_MODEL=model.onnx

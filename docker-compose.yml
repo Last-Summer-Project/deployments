@@ -123,6 +123,25 @@ services:
       - mariadb
       - minio
 
+  detect-server-flask:
+    container_name: detect-server
+    restart: always
+    command: python -m gunicorn -b 0.0.0.0:5000 flask-server:app
+    image: ghcr.io/last-summer-project/detect-server:latest
+    environment:
+      - ONNX_MODEL=model.onnx
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu]
+    expose:
+      - 5000
+    ports:
+      - "0.0.0.0:5000:5000"
+
   watchtower:
     container_name: watchtower
     image: docker.io/containrrr/watchtower

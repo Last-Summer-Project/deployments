@@ -124,7 +124,7 @@ services:
       - minio
 
   detect-server-flask:
-    container_name: detect-server
+    container_name: detect-server-flask
     restart: always
     command: python -m gunicorn -b 0.0.0.0:5000 flask-server:app
     image: ghcr.io/last-summer-project/detect-server:latest

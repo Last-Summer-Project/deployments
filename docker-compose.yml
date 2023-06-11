@@ -25,6 +25,7 @@ services:
     depends_on:
       - mariadb
       - minio
+      - detect-server-flask
 
   frontend:
     container_name: frontend
